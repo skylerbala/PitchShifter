@@ -113,6 +113,11 @@ extension AudioPlayerViewController: SongsLibraryViewControllerDelegate {
     
     
     func songPicked(song: MPMediaItem) {
+        if engine.isRunning {
+            engine.detach(player)
+            engine.detach(pitchEffect)
+        }
+        
         loadSong(songURL: song.assetURL!)
     }
 }

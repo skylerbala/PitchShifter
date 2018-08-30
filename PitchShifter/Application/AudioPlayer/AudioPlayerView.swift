@@ -30,9 +30,9 @@ extension AudioPlayerViewController {
         audioPlayerView.alignment = UIStackViewAlignment.center
         audioPlayerView.spacing = 30
         
-        audioPlayerView.addArrangedSubview(plusButton)
-        audioPlayerView.addArrangedSubview(playPauseButton)
         audioPlayerView.addArrangedSubview(minusButton)
+        audioPlayerView.addArrangedSubview(playPauseButton)
+        audioPlayerView.addArrangedSubview(plusButton)
         
         audioPlayerView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
