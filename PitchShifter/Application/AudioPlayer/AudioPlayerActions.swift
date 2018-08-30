@@ -11,9 +11,10 @@ import AVFoundation
 import MediaPlayer
 
 extension AudioPlayerViewController {
-    @objc func didChangePitchValue(_ sender: UIStepper) {
-        let stepperValue = Float(sender.value)
-        pitchValue = stepperValue
+    @objc func didChangePitchValue(_ sender: UISlider) {
+        let sliderValue = Float(sender.value)
+        pitchValue = sliderValue
+        updatePitchLabel()
     }
     
     @objc func playPauseButtonTapped(_ sender: UIButton) {
@@ -25,6 +26,15 @@ extension AudioPlayerViewController {
             sender.setImage(#imageLiteral(resourceName: "play"), for: UIControlState.normal)
         }
         
+        playPauseAction()
+    }
+    
+    @objc func didChangeVolumeValue(_ sender: UISlider) {
+        let sliderValue = Float(sender.value)
+        volumeValue = sliderValue
+    }
+    
+    func playPauseAction() {
         if player.isPlaying {
             player.pause()
         }

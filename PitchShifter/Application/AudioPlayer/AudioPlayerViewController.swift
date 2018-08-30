@@ -19,10 +19,16 @@ class AudioPlayerViewController: UIViewController {
         return view
     }()
     
-    let audioPlayerView: UIStackView = {
-        let view = UIStackView()
-        view.backgroundColor = UIColor.green
-        return view
+    let albumArtwork: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = #imageLiteral(resourceName: "album-artwork")
+        return imageView
+    }()
+    
+    let minusButton: UIButton = {
+        let button = UIButton()
+        button.setImage(#imageLiteral(resourceName: "minus-10"), for: UIControlState.normal)
+        return button
     }()
     
     let playPauseButton: UIButton = {
@@ -38,22 +44,51 @@ class AudioPlayerViewController: UIViewController {
         return button
     }()
     
-    let minusButton: UIButton = {
-        let button = UIButton()
-        button.setImage(#imageLiteral(resourceName: "minus-10"), for: UIControlState.normal)
-        return button
+    let volumeDownLabel: UILabel = {
+        let label = UILabel()
+        label.text = "<"
+        return label
     }()
     
-    let pitchStepper: UIStepper = {
-        let stepper = UIStepper()
-        stepper.minimumValue = -12.0
-        stepper.maximumValue = 12.0
-        stepper.stepValue = 0.5
-        stepper.addTarget(self, action: #selector(didChangePitchValue(_:)), for: .touchUpInside)
-        //stepper.inputView
-        return stepper
+    let volumeSlider: UISlider = {
+        let slider = UISlider()
+        slider.minimumValue = 0.0
+        slider.maximumValue = 1.0
+        slider.isContinuous = true
+        slider.addTarget(self, action: #selector(didChangeVolumeValue(_:)), for: .touchUpInside)
+        slider.value = 0.5
+        return slider
+    }()
+    
+    let volumeUpLabel: UILabel = {
+        let label = UILabel()
+        label.text = "<))"
+        return label
+    }()
+    
+    let pitchLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Pitch"
+        return label
+    }()
+    
+    let pitchSlider: UISlider = {
+        let slider = UISlider()
+        slider.minimumValue = -12.0
+        slider.maximumValue = 12.0
+        slider.isContinuous = true
+        slider.addTarget(self, action: #selector(didChangePitchValue(_:)), for: .touchUpInside)
+        slider.value = 0.00
+        return slider
+    }()
+    
+    let pitchValueLabel: UITextField = {
+        let label = UITextField()
+        label.text = "0.00"
+        return label
     }()
 
+    
     
     // MARK: AVAudio Properties
     let engine = AVAudioEngine()
@@ -88,29 +123,21 @@ class AudioPlayerViewController: UIViewController {
             pitchEffect.pitch = pitchValue * 100
         }
     }
+    var volumeValue: Float = 0.5 {
+        didSet {
+            player.volume = volumeValue
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-       
-        
+    
         setViews()
-        
-        player.volume = 1.0
-        
-    }
-    
-    
-    
-    func setPitch() {
-        pitchEffect.pitch = -500
-        pitchEffect.rate = 2
     }
 }
 
 
 extension AudioPlayerViewController: SongsLibraryViewControllerDelegate {
-    
     
     func songPicked(song: MPMediaItem) {
         if engine.isRunning {
@@ -118,7 +145,14 @@ extension AudioPlayerViewController: SongsLibraryViewControllerDelegate {
             engine.detach(pitchEffect)
         }
         
+        albumArtwork.image = song.artwork?.image(at: CGSize.zero)
+        
         loadSong(songURL: song.assetURL!)
+        
+        
+        playPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
+        playPauseButton.isSelected = true
+        playPauseAction()
     }
 }
 
