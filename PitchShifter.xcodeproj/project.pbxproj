@@ -17,7 +17,10 @@
 		9F13D1BA21374D4A00F44527 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F13D1B921374D4A00F44527 /* Assets.xcassets */; };
 		9F13D1BD21374ED900F44527 /* YoungFolks.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9F13D1BC21374ED900F44527 /* YoungFolks.mp3 */; };
 		9F13D1C021375C3E00F44527 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D1BF21375C3E00F44527 /* MainViewController.swift */; };
-		9F13D1C321375D0000F44527 /* SongsLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D1C221375D0000F44527 /* SongsLibraryViewController.swift */; };
+		9F13D1C52137BF6700F44527 /* SongsLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D1C42137BF6700F44527 /* SongsLibraryViewController.swift */; };
+		9F13D1C72137C30800F44527 /* SongsLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D1C62137C30800F44527 /* SongsLibraryView.swift */; };
+		9F13D1C92137CF2B00F44527 /* AudioPlayerAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D1C82137CF2B00F44527 /* AudioPlayerAudio.swift */; };
+		9F13D1CB2137D20500F44527 /* AudioPlayerActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D1CA2137D20500F44527 /* AudioPlayerActions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,7 +57,10 @@
 		9F13D1B921374D4A00F44527 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9F13D1BC21374ED900F44527 /* YoungFolks.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = YoungFolks.mp3; sourceTree = "<group>"; };
 		9F13D1BF21375C3E00F44527 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		9F13D1C221375D0000F44527 /* SongsLibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongsLibraryViewController.swift; sourceTree = "<group>"; };
+		9F13D1C42137BF6700F44527 /* SongsLibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongsLibraryViewController.swift; sourceTree = "<group>"; };
+		9F13D1C62137C30800F44527 /* SongsLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongsLibraryView.swift; sourceTree = "<group>"; };
+		9F13D1C82137CF2B00F44527 /* AudioPlayerAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerAudio.swift; sourceTree = "<group>"; };
+		9F13D1CA2137D20500F44527 /* AudioPlayerActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerActions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +179,8 @@
 			children = (
 				9F13D1B221374D3B00F44527 /* AudioPlayerView.swift */,
 				9F13D1B321374D3B00F44527 /* AudioPlayerViewController.swift */,
+				9F13D1C82137CF2B00F44527 /* AudioPlayerAudio.swift */,
+				9F13D1CA2137D20500F44527 /* AudioPlayerActions.swift */,
 			);
 			path = AudioPlayer;
 			sourceTree = "<group>";
@@ -204,7 +212,8 @@
 		9F13D1C121375CCB00F44527 /* SongsLibrary */ = {
 			isa = PBXGroup;
 			children = (
-				9F13D1C221375D0000F44527 /* SongsLibraryViewController.swift */,
+				9F13D1C42137BF6700F44527 /* SongsLibraryViewController.swift */,
+				9F13D1C62137C30800F44527 /* SongsLibraryView.swift */,
 			);
 			path = SongsLibrary;
 			sourceTree = "<group>";
@@ -344,10 +353,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F13D1B521374D3B00F44527 /* AppDelegate.swift in Sources */,
+				9F13D1C52137BF6700F44527 /* SongsLibraryViewController.swift in Sources */,
+				9F13D1C92137CF2B00F44527 /* AudioPlayerAudio.swift in Sources */,
+				9F13D1C72137C30800F44527 /* SongsLibraryView.swift in Sources */,
 				9F13D18521374D1F00F44527 /* PitchShifter.xcdatamodeld in Sources */,
+				9F13D1CB2137D20500F44527 /* AudioPlayerActions.swift in Sources */,
 				9F13D1B721374D3B00F44527 /* AudioPlayerViewController.swift in Sources */,
 				9F13D1B621374D3B00F44527 /* AudioPlayerView.swift in Sources */,
-				9F13D1C321375D0000F44527 /* SongsLibraryViewController.swift in Sources */,
 				9F13D1C021375C3E00F44527 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

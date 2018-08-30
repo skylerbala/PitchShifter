@@ -8,22 +8,86 @@
 
 import UIKit
 import AVFoundation
+import MediaPlayer
 
 class AudioPlayerViewController: UIViewController {
     
+    // MARK: Views
     let mainView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.blue
+        view.backgroundColor = UIColor.white
         return view
     }()
     
-    let audioEngine = AVAudioEngine()
-    let audioPlayer = AVAudioPlayerNode()
+    let audioPlayerView: UIStackView = {
+        let view = UIStackView()
+        view.backgroundColor = UIColor.green
+        return view
+    }()
     
-    var file: AVAudioFile!
-    var pitchController: AVAudioUnitTimePitch!
+    let playPauseButton: UIButton = {
+        let button = UIButton()
+        button.setImage(#imageLiteral(resourceName: "play"), for: UIControlState.normal)
+        button.target(forAction: #selector(playPauseButtonTapped(_:)), withSender: self)
+        return button
+    }()
     
-    var songURL: URL!
+    let plusButton: UIButton = {
+        let button = UIButton()
+        button.setImage(#imageLiteral(resourceName: "plus-10"), for: UIControlState.normal)
+        return button
+    }()
+    
+    let minusButton: UIButton = {
+        let button = UIButton()
+        button.setImage(#imageLiteral(resourceName: "minus-10"), for: UIControlState.normal)
+        return button
+    }()
+    
+    let pitchStepper: UIStepper = {
+        let stepper = UIStepper()
+        stepper.minimumValue = -12.0
+        stepper.maximumValue = 12.0
+        stepper.stepValue = 0.5
+        stepper.target(forAction: #selector(didChangePitchValue(_:)), withSender: self)
+        //stepper.inputView
+        return stepper
+    }()
+
+    
+    // MARK: AVAudio Properties
+    let engine = AVAudioEngine()
+    let player = AVAudioPlayerNode()
+    let pitchEffect = AVAudioUnitTimePitch()
+    var audioFileURL: URL? {
+        didSet {
+            if let audioFileURL = audioFileURL {
+                audioFile = try? AVAudioFile(forReading: audioFileURL)
+            }
+        }
+    }
+    var audioFile: AVAudioFile? {
+        didSet {
+            if let audioFile = audioFile {
+                audioLengthSamples = audioFile.length
+                audioFormat = audioFile.processingFormat
+                audioSampleRate = Float((audioFormat?.sampleRate)!)
+                audioLengthSeconds = Float(audioLengthSamples) / audioSampleRate
+            }
+        }
+    }
+    
+    // MARK: AudioFile properties
+    var audioFormat: AVAudioFormat?
+    var audioSampleRate: Float = 0
+    var audioLengthSeconds: Float = 0
+    var audioLengthSamples: AVAudioFramePosition = 0
+    var needsFileScheduled = true
+    var pitchValue: Float = 0.0 {
+        didSet {
+            pitchEffect.pitch = pitchValue
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,57 +96,24 @@ class AudioPlayerViewController: UIViewController {
         
         setViews()
         
-        audioPlayer.volume = 1.0
-        
-//        let path = Bundle.main.path(forResource: "YoungFolks", ofType: "mp3")
-//        let url = URL(fileURLWithPath: path!)
+        player.volume = 1.0
         
     }
     
-    func setSong(songURL: URL) {
-        file = try? AVAudioFile(forReading: songURL)
-        let buffer = AVAudioPCMBuffer(pcmFormat: file.processingFormat, frameCapacity: AVAudioFrameCount(file.length))
-        
-        do {
-            try file.read(into: buffer!)
-        } catch _ {
-            print("Error reading file")
-        }
-        
-        setPitch()
-        
-        audioEngine.attach(audioPlayer)
-        audioEngine.attach(pitchController)
-        audioEngine.connect(audioPlayer, to: pitchController, format: buffer?.format)
-        
-        audioEngine.connect(pitchController, to: audioEngine.mainMixerNode, format: buffer?.format)
-        audioPlayer.scheduleBuffer(buffer!, at: nil, options: AVAudioPlayerNodeBufferOptions.loops, completionHandler: nil)
-        
-        audioEngine.prepare()
-        do {
-            try audioEngine.start()
-        } catch _ {
-            print("Error engine did not start")
-        }
-        
-        audioPlayer.play()
-    }
+    
     
     func setPitch() {
-        pitchController = AVAudioUnitTimePitch()
-        pitchController.pitch = -500
-        pitchController.rate = 2
-    }
-    
-    func getAudioFile() {
-        
+        pitchEffect.pitch = -500
+        pitchEffect.rate = 2
     }
 }
 
 
 extension AudioPlayerViewController: SongsLibraryViewControllerDelegate {
-    func songPicked(songURL: URL) {
-        setSong(songURL: songURL)
+    
+    
+    func songPicked(song: MPMediaItem) {
+        loadSong(songURL: song.assetURL!)
     }
 }
 
