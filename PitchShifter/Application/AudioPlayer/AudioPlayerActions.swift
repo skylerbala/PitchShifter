@@ -11,27 +11,35 @@ import AVFoundation
 import MediaPlayer
 
 extension AudioPlayerViewController {
-    @objc func didChangePitchValue(_ sender: UISlider) {
-        let sliderValue = Float(sender.value)
-        pitchValue = sliderValue
-        updatePitchLabel()
+    @objc func didChangePitchValue(_ sender: AnyObject) {
+        var value: Float!
+        if let slider = sender as? UISlider {
+            value = Float(slider.value)
+        }
+        
+        if let inputField = sender as? UITextField {
+            let stringValue = inputField.text!
+            value = Float(stringValue)
+        }
+        
+        pitchValue = value
     }
     
     @objc func playPauseButtonTapped(_ sender: UIButton) {
-        sender.isSelected = !sender.isSelected
-        if sender.isSelected {
-            sender.setImage(#imageLiteral(resourceName: "pause"), for: UIControlState.normal)
+        if engine.isRunning {
+            sender.isSelected = !sender.isSelected
+            if sender.isSelected {
+                sender.setImage(#imageLiteral(resourceName: "pause"), for: UIControlState.normal)
+            }
+            else {
+                sender.setImage(#imageLiteral(resourceName: "play"), for: UIControlState.normal)
+            }
+            
+            playPauseAction()
         }
         else {
-            sender.setImage(#imageLiteral(resourceName: "play"), for: UIControlState.normal)
+            //Alert
         }
-        
-        playPauseAction()
-    }
-    
-    @objc func didChangeVolumeValue(_ sender: UISlider) {
-        let sliderValue = Float(sender.value)
-        volumeValue = sliderValue
     }
     
     func playPauseAction() {

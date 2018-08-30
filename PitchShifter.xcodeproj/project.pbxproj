@@ -293,6 +293,11 @@
 					9F13D17821374D1F00F44527 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					9F13D18F21374D1F00F44527 = {
 						CreatedOnToolsVersion = 9.2;

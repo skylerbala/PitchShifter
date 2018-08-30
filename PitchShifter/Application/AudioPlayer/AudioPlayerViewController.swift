@@ -50,14 +50,18 @@ class AudioPlayerViewController: UIViewController {
         return label
     }()
     
-    let volumeSlider: UISlider = {
-        let slider = UISlider()
-        slider.minimumValue = 0.0
-        slider.maximumValue = 1.0
-        slider.isContinuous = true
-        slider.addTarget(self, action: #selector(didChangeVolumeValue(_:)), for: .touchUpInside)
-        slider.value = 0.5
-        return slider
+//    let volumeSlider: UISlider = {
+//        let slider = UISlider()
+//        slider.minimumValue = 0.0
+//        slider.maximumValue = 1.0
+//        slider.isContinuous = true
+//        slider.addTarget(self, action: #selector(didChangeVolumeValue(_:)), for: .touchUpInside)
+//        slider.value = 0.5
+//        return slider
+//    }()
+    let volumeSlider: MPVolumeView = {
+        let volumeView = MPVolumeView()
+        return volumeView
     }()
     
     let volumeUpLabel: UILabel = {
@@ -77,7 +81,7 @@ class AudioPlayerViewController: UIViewController {
         slider.minimumValue = -12.0
         slider.maximumValue = 12.0
         slider.isContinuous = true
-        slider.addTarget(self, action: #selector(didChangePitchValue(_:)), for: .touchUpInside)
+        slider.addTarget(self, action: #selector(didChangePitchValue(_:)), for: .valueChanged)
         slider.value = 0.00
         return slider
     }()
@@ -85,14 +89,28 @@ class AudioPlayerViewController: UIViewController {
     let pitchValueLabel: UITextField = {
         let label = UITextField()
         label.text = "0.00"
+        label.addTarget(self, action: #selector(didChangePitchValue(_:)), for: .valueChanged)
+        label.borderStyle = .roundedRect
+        label.keyboardType = .numbersAndPunctuation
+        label.keyboardAppearance = .light
         return label
     }()
-
+    
+    let lyricsView: UITextView = {
+        let textView = UITextView()
+        textView.backgroundColor = UIColor(white: 0.8, alpha: 0.8)
+        return textView
+    }()
+    
     
     
     // MARK: AVAudio Properties
     let engine = AVAudioEngine()
-    let player = AVAudioPlayerNode()
+    let player: AVAudioPlayerNode = {
+        let pnode = AVAudioPlayerNode()
+        pnode.volume = 1.0
+        return pnode
+    }()
     let pitchEffect = AVAudioUnitTimePitch()
     var audioFileURL: URL? {
         didSet {
@@ -121,11 +139,7 @@ class AudioPlayerViewController: UIViewController {
     var pitchValue: Float = 0.0 {
         didSet {
             pitchEffect.pitch = pitchValue * 100
-        }
-    }
-    var volumeValue: Float = 0.5 {
-        didSet {
-            player.volume = volumeValue
+            updatePitchLabelAndSlider()
         }
     }
     
@@ -133,6 +147,8 @@ class AudioPlayerViewController: UIViewController {
         super.viewDidLoad()
     
         setViews()
+        
+        pitchValueLabel.delegate = self
     }
 }
 
@@ -145,7 +161,19 @@ extension AudioPlayerViewController: SongsLibraryViewControllerDelegate {
             engine.detach(pitchEffect)
         }
         
-        albumArtwork.image = song.artwork?.image(at: CGSize.zero)
+        if let artwork = song.artwork {
+            albumArtwork.image = artwork.image(at: CGSize.zero)
+        }
+        else {
+            albumArtwork.image = #imageLiteral(resourceName: "album-artwork")
+        }
+        
+        if song.lyrics == "" {
+            lyricsView.text = "No lyrics"
+        }
+        else {
+            lyricsView.text = song.lyrics
+        }
         
         loadSong(songURL: song.assetURL!)
         
@@ -153,6 +181,35 @@ extension AudioPlayerViewController: SongsLibraryViewControllerDelegate {
         playPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
         playPauseButton.isSelected = true
         playPauseAction()
+    }
+}
+
+extension AudioPlayerViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard let value = Float(textField.text as! String) else {
+            textField.layer.borderColor = UIColor.red.cgColor
+            textField.layer.borderWidth = 1.0
+            return false
+        }
+        textField.layer.borderWidth = 0.0
+        textField.resignFirstResponder()
+        pitchValue = value
+        return true
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        guard let value  = Float(textField.text as! String) else {
+            textField.layer.borderColor = UIColor.red.cgColor
+            textField.layer.borderWidth = 1.0
+            return false
+        }
+        textField.layer.borderWidth = 0.0
+        pitchValue = value
+        return true
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
     }
 }
 

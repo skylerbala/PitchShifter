@@ -68,6 +68,15 @@ extension AudioPlayerViewController {
             albumArtwork.widthAnchor.constraint(equalToConstant: view.frame.width - 200),
         ])
         
+        view.addSubview(lyricsView)
+        lyricsView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            lyricsView.topAnchor.constraint(equalTo: albumArtwork.topAnchor),
+            lyricsView.leftAnchor.constraint(equalTo: albumArtwork.leftAnchor),
+            lyricsView.heightAnchor.constraint(equalTo: albumArtwork.heightAnchor),
+            lyricsView.widthAnchor.constraint(equalTo: albumArtwork.widthAnchor),
+        ])
+        
         view.addSubview(audioPlayerStackView)
         audioPlayerStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -83,7 +92,7 @@ extension AudioPlayerViewController {
             pitchSliderStackView.topAnchor.constraint(equalTo: audioPlayerStackView.bottomAnchor, constant: 25),
             pitchSliderStackView.widthAnchor.constraint(equalToConstant: view.frame.width - 50),
         ])
-        pitchSlider.widthAnchor.constraint(equalTo: pitchSliderStackView.widthAnchor, constant: -150).isActive = true
+        pitchSlider.widthAnchor.constraint(equalTo: pitchSliderStackView.widthAnchor, constant: -170).isActive = true
 
         view.addSubview(volumeSliderStackView)
         volumeSliderStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -92,6 +101,7 @@ extension AudioPlayerViewController {
             volumeSliderStackView.topAnchor.constraint(equalTo: pitchSliderStackView.bottomAnchor, constant: 25),
             volumeSliderStackView.widthAnchor.constraint(equalToConstant: view.frame.width - 50),
         ])
-        volumeSlider.widthAnchor.constraint(equalTo: pitchSliderStackView.widthAnchor, constant: -150).isActive = true
+        volumeSlider.widthAnchor.constraint(equalTo: pitchSliderStackView.widthAnchor, constant: -170).isActive = true
+        volumeSlider.heightAnchor.constraint(equalTo: pitchSliderStackView.heightAnchor, constant: 0).isActive = true
     }
 }

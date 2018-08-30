@@ -10,9 +10,9 @@ import Foundation
 import UIKit
 
 extension AudioPlayerViewController {
-    func updatePitchLabel() {
+    func updatePitchLabelAndSlider() {
+        pitchSlider.setValue(pitchValue, animated: true)
         let pitchValueRounded = String(format: "%.2f", pitchValue)
-
         pitchValueLabel.text = "\(pitchValueRounded)"
     }
 }
