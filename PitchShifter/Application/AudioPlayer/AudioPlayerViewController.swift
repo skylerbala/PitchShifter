@@ -28,7 +28,7 @@ class AudioPlayerViewController: UIViewController {
     let playPauseButton: UIButton = {
         let button = UIButton()
         button.setImage(#imageLiteral(resourceName: "play"), for: UIControlState.normal)
-        button.target(forAction: #selector(playPauseButtonTapped(_:)), withSender: self)
+        button.addTarget(self, action: #selector(playPauseButtonTapped(_:)), for: .touchUpInside)
         return button
     }()
     
@@ -49,7 +49,7 @@ class AudioPlayerViewController: UIViewController {
         stepper.minimumValue = -12.0
         stepper.maximumValue = 12.0
         stepper.stepValue = 0.5
-        stepper.target(forAction: #selector(didChangePitchValue(_:)), withSender: self)
+        stepper.addTarget(self, action: #selector(didChangePitchValue(_:)), for: .touchUpInside)
         //stepper.inputView
         return stepper
     }()
@@ -85,7 +85,7 @@ class AudioPlayerViewController: UIViewController {
     var needsFileScheduled = true
     var pitchValue: Float = 0.0 {
         didSet {
-            pitchEffect.pitch = pitchValue
+            pitchEffect.pitch = pitchValue * 100
         }
     }
     

@@ -11,12 +11,12 @@ import AVFoundation
 import MediaPlayer
 
 extension AudioPlayerViewController {
-    func didChangePitchValue(_ sender: UISlider) {
-        let index = round(sender.value)
-        
+    @objc func didChangePitchValue(_ sender: UIStepper) {
+        let stepperValue = Float(sender.value)
+        pitchValue = stepperValue
     }
     
-    func playPauseButtonTapped(_ sender: UIButton) {
+    @objc func playPauseButtonTapped(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         if sender.isSelected {
             sender.setImage(#imageLiteral(resourceName: "pause"), for: UIControlState.normal)

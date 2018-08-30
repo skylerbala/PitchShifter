@@ -41,5 +41,14 @@ extension AudioPlayerViewController {
             audioPlayerView.heightAnchor.constraint(equalToConstant: 100),
             audioPlayerView.widthAnchor.constraint(equalToConstant: view.frame.width - 50.0),
         ])
+        
+        view.addSubview(pitchStepper)
+        pitchStepper.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            pitchStepper.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            pitchStepper.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 150),
+            pitchStepper.heightAnchor.constraint(equalToConstant: 100),
+            pitchStepper.widthAnchor.constraint(equalToConstant: view.frame.width - 50.0),
+        ])
     }
 }
