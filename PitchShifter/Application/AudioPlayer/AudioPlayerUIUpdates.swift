@@ -15,4 +15,10 @@ extension AudioPlayerViewController {
         let pitchValueRounded = String(format: "%.2f", pitchValue)
         pitchValueLabel.text = "\(pitchValueRounded)"
     }
+    
+    func updateRateLabelAndSlider() {
+        rateSlider.setValue(rateValue, animated: true)
+        let rateValueRounded = String(format: "%.2f", rateValue)
+        rateValueLabel.text = "\(rateValueRounded)"
+    }
 }

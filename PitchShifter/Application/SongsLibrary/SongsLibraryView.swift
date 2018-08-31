@@ -11,16 +11,9 @@ import UIKit
 
 extension SongsLibraryViewController {
     func setViews() {
-        view.addSubview(tableView)
         
         let layoutGuide = view.safeAreaLayoutGuide
         
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            tableView.rightAnchor.constraint(equalTo: layoutGuide.rightAnchor),
-            tableView.leftAnchor.constraint(equalTo: layoutGuide.leftAnchor),
-            tableView.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor),
-            tableView.topAnchor.constraint(equalTo: layoutGuide.topAnchor)
-        ])
+
     }
 }

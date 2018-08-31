@@ -15,9 +15,9 @@ extension AudioPlayerViewController {
         audioFileURL = songURL
         
         engine.attach(player)
-        engine.attach(pitchEffect)
-        engine.connect(player, to: pitchEffect, format: audioFormat)
-        engine.connect(pitchEffect, to: engine.mainMixerNode, format: audioFormat)
+        engine.attach(effects)
+        engine.connect(player, to: effects, format: audioFormat)
+        engine.connect(effects, to: engine.mainMixerNode, format: audioFormat)
         engine.prepare()
         
         do {

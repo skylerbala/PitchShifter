@@ -23,6 +23,8 @@
 		9F13D1CB2137D20500F44527 /* AudioPlayerActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D1CA2137D20500F44527 /* AudioPlayerActions.swift */; };
 		9F13D1CD2137F3DD00F44527 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D1CC2137F3DD00F44527 /* Song.swift */; };
 		9F13D1CF21380BC200F44527 /* AudioPlayerUIUpdates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D1CE21380BC200F44527 /* AudioPlayerUIUpdates.swift */; };
+		9F13D2122138B86C00F44527 /* UIImageColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D2112138B86C00F44527 /* UIImageColors.swift */; };
+		9F13D2142138BD9F00F44527 /* SongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D2132138BD9F00F44527 /* SongCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,8 @@
 		9F13D1CA2137D20500F44527 /* AudioPlayerActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerActions.swift; sourceTree = "<group>"; };
 		9F13D1CC2137F3DD00F44527 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		9F13D1CE21380BC200F44527 /* AudioPlayerUIUpdates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerUIUpdates.swift; sourceTree = "<group>"; };
+		9F13D2112138B86C00F44527 /* UIImageColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageColors.swift; sourceTree = "<group>"; };
+		9F13D2132138BD9F00F44527 /* SongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +169,7 @@
 		9F13D1AF21374D3B00F44527 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				9F13D2112138B86C00F44527 /* UIImageColors.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -220,6 +225,7 @@
 			children = (
 				9F13D1C42137BF6700F44527 /* SongsLibraryViewController.swift */,
 				9F13D1C62137C30800F44527 /* SongsLibraryView.swift */,
+				9F13D2132138BD9F00F44527 /* SongCell.swift */,
 			);
 			path = SongsLibrary;
 			sourceTree = "<group>";
@@ -364,6 +370,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F13D1B521374D3B00F44527 /* AppDelegate.swift in Sources */,
+				9F13D2142138BD9F00F44527 /* SongCell.swift in Sources */,
 				9F13D1C52137BF6700F44527 /* SongsLibraryViewController.swift in Sources */,
 				9F13D1C92137CF2B00F44527 /* AudioPlayerAudio.swift in Sources */,
 				9F13D1C72137C30800F44527 /* SongsLibraryView.swift in Sources */,
@@ -372,6 +379,7 @@
 				9F13D1CB2137D20500F44527 /* AudioPlayerActions.swift in Sources */,
 				9F13D1B721374D3B00F44527 /* AudioPlayerViewController.swift in Sources */,
 				9F13D1CF21380BC200F44527 /* AudioPlayerUIUpdates.swift in Sources */,
+				9F13D2122138B86C00F44527 /* UIImageColors.swift in Sources */,
 				9F13D1B621374D3B00F44527 /* AudioPlayerView.swift in Sources */,
 				9F13D1C021375C3E00F44527 /* MainViewController.swift in Sources */,
 			);

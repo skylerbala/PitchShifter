@@ -13,7 +13,9 @@ class MainViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let songsLibraryVC = SongsLibraryViewController()
+        let layout = UICollectionViewFlowLayout()
+        let songsLibraryVC = SongsLibraryViewController(collectionViewLayout: layout)
+
         let audioPlayerVC = AudioPlayerViewController()
         
         songsLibraryVC.tabBarItem = UITabBarItem(title: "Library", image: nil, selectedImage: nil)

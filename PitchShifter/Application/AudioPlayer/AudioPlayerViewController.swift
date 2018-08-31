@@ -96,6 +96,32 @@ class AudioPlayerViewController: UIViewController {
         return label
     }()
     
+    let rateLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Pitch"
+        return label
+    }()
+    
+    let rateSlider: UISlider = {
+        let slider = UISlider()
+        slider.minimumValue = -12.0
+        slider.maximumValue = 12.0
+        slider.isContinuous = true
+        slider.addTarget(self, action: #selector(didChangePitchValue(_:)), for: .valueChanged)
+        slider.value = 0.00
+        return slider
+    }()
+    
+    let rateValueLabel: UITextField = {
+        let label = UITextField()
+        label.text = "0.00"
+        label.addTarget(self, action: #selector(didChangePitchValue(_:)), for: .valueChanged)
+        label.borderStyle = .roundedRect
+        label.keyboardType = .numbersAndPunctuation
+        label.keyboardAppearance = .light
+        return label
+    }()
+    
     let lyricsView: UITextView = {
         let textView = UITextView()
         textView.backgroundColor = UIColor(white: 0.8, alpha: 0.8)
@@ -111,7 +137,7 @@ class AudioPlayerViewController: UIViewController {
         pnode.volume = 1.0
         return pnode
     }()
-    let pitchEffect = AVAudioUnitTimePitch()
+    let effects = AVAudioUnitTimePitch()
     var audioFileURL: URL? {
         didSet {
             if let audioFileURL = audioFileURL {
@@ -138,8 +164,14 @@ class AudioPlayerViewController: UIViewController {
     var needsFileScheduled = true
     var pitchValue: Float = 0.0 {
         didSet {
-            pitchEffect.pitch = pitchValue * 100
+            effects.pitch = pitchValue * 100
             updatePitchLabelAndSlider()
+        }
+    }
+    var rateValue: Float = 0.0 {
+        didSet {
+            effects.rate = rateValue
+            updateRateLabelAndSlider()
         }
     }
     
@@ -158,7 +190,7 @@ extension AudioPlayerViewController: SongsLibraryViewControllerDelegate {
     func songPicked(song: MPMediaItem) {
         if engine.isRunning {
             engine.detach(player)
-            engine.detach(pitchEffect)
+            engine.detach(effects)
         }
         
         if let artwork = song.artwork {
