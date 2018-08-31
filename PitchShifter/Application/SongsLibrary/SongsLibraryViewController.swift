@@ -32,9 +32,13 @@ class SongsLibraryViewController: UICollectionViewController, UICollectionViewDe
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellID", for: indexPath) as! SongCell
-        cell.albumArtworkImageView.image = songs[indexPath.row].artwork?.image(at: CGSize())
-        cell.songTitleLabel.text = songs[indexPath.row].title
-        cell.artistLabel.text = songs[indexPath.row].artist
+        let song = songs[indexPath.row]
+        cell.songTitleLabel.text = song.title
+        cell.artistLabel.text = song.artist
+        if let artworkImage = song.artwork?.image(at: CGSize()) {
+            cell.albumArtworkImageView.image = artworkImage
+            cell.setImageCellColors(image: artworkImage)
+        }
         return cell
     }
     
@@ -47,6 +51,8 @@ class SongsLibraryViewController: UICollectionViewController, UICollectionViewDe
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellID", for: indexPath) as! SongCell
+        print(cell.uuid)
         let song = songs[indexPath.row]
         songsLibraryViewControllerDelegate.songPicked(song: song)
         let viewControllers = tabBarController!.viewControllers

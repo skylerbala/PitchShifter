@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
+var imageColorCache = [String: UIImageColors]()
+
 class SongCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -39,6 +41,8 @@ class SongCell: UICollectionViewCell {
         return view
     }()
     
+    var imageColors: UIImageColors!
+    
     func setCellViews() {
         addSubview(albumArtworkImageView)
         addSubview(separatorView)
@@ -59,6 +63,21 @@ class SongCell: UICollectionViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setImageCellColors(image: UIImage) {
+        if let imageColorFromCache = imageColorCache[songTitleLabel.text!] {
+            backgroundColor = imageColorFromCache.background
+            songTitleLabel.textColor = imageColorFromCache.primary
+            artistLabel.textColor = imageColorFromCache.secondary
+        }
+        else {
+            let colors = image.getColors(quality: .lowest)
+            imageColorCache[songTitleLabel.text!] = colors
+            backgroundColor = colors.background
+            songTitleLabel.textColor = colors.primary
+            artistLabel.textColor = colors.secondary
+        }
     }
 }
 
