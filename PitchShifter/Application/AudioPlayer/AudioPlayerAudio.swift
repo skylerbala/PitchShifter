@@ -9,10 +9,12 @@
 import Foundation
 import AVFoundation
 import MediaPlayer
+import JavaScriptCore
 
 extension AudioPlayerViewController {
     func loadSong(songURL: URL) {
         audioFileURL = songURL
+        
         
         engine.attach(player)
         engine.attach(effects)
@@ -38,5 +40,8 @@ extension AudioPlayerViewController {
         }
         
         
+    }
+    
+    func javascript() {
     }
 }

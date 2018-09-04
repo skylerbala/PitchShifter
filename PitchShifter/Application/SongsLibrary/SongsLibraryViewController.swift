@@ -13,14 +13,59 @@ protocol SongsLibraryViewControllerDelegate {
     func songPicked(song: MPMediaItem)
 }
 
+enum AnimationState {
+    case fullScreen
+    case thumbnail
+}
+
 class SongsLibraryViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
     let songs = MPMediaQuery.songs().items as! [MPMediaItem]
+    
     var songsLibraryViewControllerDelegate: SongsLibraryViewControllerDelegate!
+    
+    let nowPlayingView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.black
+        view.isUserInteractionEnabled = true
+        return view
+    }()
+    
+    let nowPlayingLabel: UILabel = {
+        let label = UILabel()
+        return label
+    }()
+    
+    let nowPlayingArtwork: UIImageView = {
+        let artwork = UIImageView()
+        return artwork
+    }()
+    
+    let blackAnimationView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.black
+        view.alpha = 0.0
+        return view
+    }()
+    
+    
+    // MARK: Animations
+    var panGestureRecognizer: UIPanGestureRecognizer!
+    var animator: UIViewPropertyAnimator?
+    var currentState: AnimationState!
+    var thumbnailFrame: CGRect!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        setViews()
+        
+        panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan(recognizer:)))
+        nowPlayingView.addGestureRecognizer(panGestureRecognizer)
+        
+        thumbnailFrame = nowPlayingView.frame
+        currentState = .thumbnail
+        
         navigationItem.title = "Songs"
         
         collectionView?.register(SongCell.self, forCellWithReuseIdentifier: "cellID")
@@ -52,11 +97,9 @@ class SongsLibraryViewController: UICollectionViewController, UICollectionViewDe
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellID", for: indexPath) as! SongCell
-        print(cell.uuid)
         let song = songs[indexPath.row]
-        songsLibraryViewControllerDelegate.songPicked(song: song)
-        let viewControllers = tabBarController!.viewControllers
-        tabBarController?.selectedViewController = viewControllers?[1]
+        let audioPlayerVC = AudioPlayerViewController()
+        self.songsLibraryViewControllerDelegate.songPicked(song: song)
     }
 }
 
