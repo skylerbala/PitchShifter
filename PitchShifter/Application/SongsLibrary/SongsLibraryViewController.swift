@@ -8,6 +8,7 @@
 
 import UIKit
 import MediaPlayer
+import CoreLocation
 
 protocol SongsLibraryViewControllerDelegate {
     func songPicked(song: MPMediaItem)
@@ -18,7 +19,7 @@ enum AnimationState {
     case thumbnail
 }
 
-class SongsLibraryViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class SongsLibraryViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, CLLocationManagerDelegate {
 
     let songs = MPMediaQuery.songs().items as! [MPMediaItem]
     
@@ -49,6 +50,15 @@ class SongsLibraryViewController: UICollectionViewController, UICollectionViewDe
     }()
     
     
+    //Location
+    
+    let locationManager: CLLocationManager = {
+        let lm = CLLocationManager()
+        lm.desiredAccuracy = kCLLocationAccuracyBest
+        return lm
+    }()
+    
+    
     // MARK: Animations
     var panGestureRecognizer: UIPanGestureRecognizer!
     var animator: UIViewPropertyAnimator?
@@ -73,6 +83,34 @@ class SongsLibraryViewController: UICollectionViewController, UICollectionViewDe
         navigationItem.title = "Songs"
         
         collectionView?.register(SongCell.self, forCellWithReuseIdentifier: "cellID")
+        
+        
+        
+        //Location
+        locationManager.delegate = self
+        locationManager.requestAlwaysAuthorization()
+        if CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways {
+            locationManager.startUpdatingLocation()
+        }
+        else {
+            locationManager.requestAlwaysAuthorization()
+        }
+    }
+    
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let latestLocation = locations.last
+        let speedInMilesPerHour = (latestLocation?.speed)! / 1609.4 * 60 * 60
+        let inputSpeed = 3.1
+        
+        let speedRatio = speedInMilesPerHour / inputSpeed
+        print("Speed Ratio: \(speedRatio)")
+        let volumeView = MPVolumeView()
+        if let view = volumeView.subviews.first as? UISlider {
+            view.value = Float(speedRatio)
+        }
+        
+        print("Speed: \(speedInMilesPerHour)")
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
