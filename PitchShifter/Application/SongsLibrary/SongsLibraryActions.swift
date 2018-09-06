@@ -29,14 +29,23 @@ extension SongsLibraryViewController {
     func startPanning() {
         var finalFrame: CGRect = CGRect()
         var blackAnimationiewAlpha: CGFloat = 0
+        var tabBarFinalFrame: CGRect = CGRect()
+        var artworkFinalFrame: CGRect = CGRect()
+        var cornerRadius: CGFloat!
         
         switch currentState {
             case .fullScreen:
                 finalFrame = thumbnailFrame
+                tabBarFinalFrame = tabBarFrame
+                artworkFinalFrame = artworkFrame
                 blackAnimationiewAlpha = 0
+                cornerRadius = 0
             case .thumbnail:
-                finalFrame = view.frame
-                blackAnimationiewAlpha = 1
+                finalFrame = CGRect(x: 0, y: view.safeAreaLayoutGuide.layoutFrame.minY, width: view.frame.width, height: view.frame.height)
+                tabBarFinalFrame = CGRect(x: 0, y: view.frame.height, width: view.frame.width, height: view.frame.height)
+                blackAnimationiewAlpha = 0.7
+                artworkFinalFrame = CGRect(x: view.safeAreaLayoutGuide.layoutFrame.minX + 16, y: view.safeAreaLayoutGuide.layoutFrame.minY + 16, width: view.frame.width - (16 * 2), height: view.frame.width - (16 * 2))
+                cornerRadius = 40
             default:
                 print("unknown state")
         }
@@ -44,6 +53,9 @@ extension SongsLibraryViewController {
         animator = UIViewPropertyAnimator(duration: 1.0, dampingRatio: 0.8, animations: {
             self.nowPlayingView.frame = finalFrame
             self.blackAnimationView.alpha = blackAnimationiewAlpha
+            self.nowPlayingArtwork.frame = artworkFinalFrame
+            self.tabBarController?.tabBar.frame = tabBarFinalFrame
+            self.nowPlayingView.layer.cornerRadius = cornerRadius
         })
     }
     

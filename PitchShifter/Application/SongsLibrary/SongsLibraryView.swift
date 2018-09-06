@@ -19,17 +19,13 @@ extension SongsLibraryViewController {
         blackAnimationView.activate(leading: view.leadingAnchor, trailing: view.trailingAnchor, top: view.topAnchor, bottom: view.bottomAnchor, centerX: nil, centerY: nil, width: nil, height: nil)
         
         view.addSubview(nowPlayingView)
-        nowPlayingView.frame = CGRect(x: 0, y: tabBarBottom - 50, width: view.frame.width, height: view.frame.height)
+        nowPlayingView.frame = CGRect(x: 0, y: tabBarBottom - 55 - 8 - 8, width: view.frame.width, height: 55 + 8 + 8)
         
-        NSLayoutConstraint.activate([
-            nowPlayingArtwork.leadingAnchor.constraint(equalTo: nowPlayingView.leadingAnchor, constant: 8),
-            nowPlayingArtwork.bottomAnchor.constraint(equalTo: nowPlayingView.bottomAnchor, constant: -8),
-            nowPlayingArtwork.topAnchor.constraint(equalTo: nowPlayingView.topAnchor, constant: 8),
-
-        ])
+        view.addSubview(nowPlayingArtwork)
+        nowPlayingArtwork.frame = CGRect(x: nowPlayingView.frame.minX + 8, y: nowPlayingView.frame.minY + 8, width: 55, height: 55)
         
-        // replace
-        nowPlayingArtwork.widthAnchor.constraint(equalToConstant: 50)
+        view.addSubview(nowPlayingLabel)
+        nowPlayingArtwork.frame = CGRect(x: nowPlayingView.frame.minX + 8, y: nowPlayingView.frame.minY + 8, width: 55, height: 55)
 
 
     }

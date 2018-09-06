@@ -54,6 +54,8 @@ class SongsLibraryViewController: UICollectionViewController, UICollectionViewDe
     var animator: UIViewPropertyAnimator?
     var currentState: AnimationState!
     var thumbnailFrame: CGRect!
+    var tabBarFrame: CGRect!
+    var artworkFrame: CGRect!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +66,8 @@ class SongsLibraryViewController: UICollectionViewController, UICollectionViewDe
         nowPlayingView.addGestureRecognizer(panGestureRecognizer)
         
         thumbnailFrame = nowPlayingView.frame
+        artworkFrame = nowPlayingArtwork.frame
+        tabBarFrame = tabBarController?.tabBar.frame
         currentState = .thumbnail
         
         navigationItem.title = "Songs"
@@ -100,6 +104,11 @@ class SongsLibraryViewController: UICollectionViewController, UICollectionViewDe
         let song = songs[indexPath.row]
         let audioPlayerVC = AudioPlayerViewController()
         self.songsLibraryViewControllerDelegate.songPicked(song: song)
+        
+        
+        if let artwork = song.artwork {
+            nowPlayingArtwork.image = artwork.image(at: CGSize())
+        }
     }
 }
 
