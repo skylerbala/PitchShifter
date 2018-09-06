@@ -9,6 +9,11 @@
 import Foundation
 import UIKit
 
+enum AnimationState {
+    case fullScreen
+    case thumbnail
+}
+
 extension SongsLibraryViewController {
     @objc func handlePan(recognizer: UIPanGestureRecognizer) {
         let translation = recognizer.translation(in: view.superview)
@@ -52,7 +57,7 @@ extension SongsLibraryViewController {
         
         animator = UIViewPropertyAnimator(duration: 1.0, dampingRatio: 0.8, animations: {
             self.nowPlayingBarMainView.frame = finalFrame
-            self.blackAnimationView.alpha = blackAnimationiewAlpha
+            self.blackFadeAnimationView.alpha = blackAnimationiewAlpha
             self.nowPlayingBarArtworkImageView.frame = artworkFinalFrame
             self.tabBarController?.tabBar.frame = tabBarFinalFrame
             self.nowPlayingBarMainView.layer.cornerRadius = cornerRadius

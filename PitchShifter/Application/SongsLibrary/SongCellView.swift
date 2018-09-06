@@ -21,8 +21,8 @@ extension SongCell {
         NSLayoutConstraint.activate([
             artworkImageView.topAnchor.constraint(equalTo: self.topAnchor),
             artworkImageView.leftAnchor.constraint(equalTo: self.leftAnchor),
-            artworkImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            artworkImageView.widthAnchor.constraint(equalTo: self.heightAnchor)
+            artworkImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -1),
+            artworkImageView.widthAnchor.constraint(equalTo: artworkImageView.heightAnchor)
         ])
         
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -51,10 +51,10 @@ extension SongCell {
         
         separatorView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            separatorView.topAnchor.constraint(equalTo: self.bottomAnchor),
+            separatorView.topAnchor.constraint(equalTo: artworkImageView.bottomAnchor),
             separatorView.leftAnchor.constraint(equalTo: self.leftAnchor),
             separatorView.rightAnchor.constraint(equalTo: self.rightAnchor),
-            separatorView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            separatorView.heightAnchor.constraint(equalToConstant: 1)
         ])
     }
 }

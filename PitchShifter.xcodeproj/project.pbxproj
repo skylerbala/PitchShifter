@@ -20,7 +20,7 @@
 		9F13D1BA21374D4A00F44527 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F13D1B921374D4A00F44527 /* Assets.xcassets */; };
 		9F13D1C021375C3E00F44527 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D1BF21375C3E00F44527 /* MainViewController.swift */; };
 		9F13D1C52137BF6700F44527 /* SongsLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D1C42137BF6700F44527 /* SongsLibraryViewController.swift */; };
-		9F13D1C72137C30800F44527 /* SongsLibraryNowPlayingBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D1C62137C30800F44527 /* SongsLibraryNowPlayingBarView.swift */; };
+		9F13D1C72137C30800F44527 /* SongsLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D1C62137C30800F44527 /* SongsLibraryView.swift */; };
 		9F13D1C92137CF2B00F44527 /* AudioPlayerAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D1C82137CF2B00F44527 /* AudioPlayerAudio.swift */; };
 		9F13D1CB2137D20500F44527 /* AudioPlayerActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D1CA2137D20500F44527 /* AudioPlayerActions.swift */; };
 		9F13D1CD2137F3DD00F44527 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F13D1CC2137F3DD00F44527 /* Song.swift */; };
@@ -74,7 +74,7 @@
 		9F13D1B921374D4A00F44527 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9F13D1BF21375C3E00F44527 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		9F13D1C42137BF6700F44527 /* SongsLibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongsLibraryViewController.swift; sourceTree = "<group>"; };
-		9F13D1C62137C30800F44527 /* SongsLibraryNowPlayingBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongsLibraryNowPlayingBarView.swift; sourceTree = "<group>"; };
+		9F13D1C62137C30800F44527 /* SongsLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongsLibraryView.swift; sourceTree = "<group>"; };
 		9F13D1C82137CF2B00F44527 /* AudioPlayerAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerAudio.swift; sourceTree = "<group>"; };
 		9F13D1CA2137D20500F44527 /* AudioPlayerActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerActions.swift; sourceTree = "<group>"; };
 		9F13D1CC2137F3DD00F44527 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
@@ -261,7 +261,7 @@
 			isa = PBXGroup;
 			children = (
 				9F13D1C42137BF6700F44527 /* SongsLibraryViewController.swift */,
-				9F13D1C62137C30800F44527 /* SongsLibraryNowPlayingBarView.swift */,
+				9F13D1C62137C30800F44527 /* SongsLibraryView.swift */,
 				9F13D2132138BD9F00F44527 /* SongCell.swift */,
 				9F10AB3F214145060065DC65 /* SongCellView.swift */,
 				9F13D217213903CD00F44527 /* SongsLibraryActions.swift */,
@@ -502,7 +502,7 @@
 				9F13D2142138BD9F00F44527 /* SongCell.swift in Sources */,
 				9F13D1C52137BF6700F44527 /* SongsLibraryViewController.swift in Sources */,
 				9F13D1C92137CF2B00F44527 /* AudioPlayerAudio.swift in Sources */,
-				9F13D1C72137C30800F44527 /* SongsLibraryNowPlayingBarView.swift in Sources */,
+				9F13D1C72137C30800F44527 /* SongsLibraryView.swift in Sources */,
 				9F13D1CD2137F3DD00F44527 /* Song.swift in Sources */,
 				9F13D18521374D1F00F44527 /* PitchShifter.xcdatamodeld in Sources */,
 				9F10AB40214145060065DC65 /* SongCellView.swift in Sources */,

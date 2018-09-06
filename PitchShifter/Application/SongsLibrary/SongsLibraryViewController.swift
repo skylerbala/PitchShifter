@@ -13,12 +13,6 @@ protocol SongsLibraryViewControllerDelegate {
     func songPicked(song: MPMediaItem)
 }
 
-enum AnimationState {
-    case fullScreen
-    case thumbnail
-}
-
-
 class SongsLibraryViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
     var songs = MPMediaQuery.songs().items!
@@ -30,11 +24,20 @@ class SongsLibraryViewController: UICollectionViewController, UICollectionViewDe
         let view = UIView()
         view.backgroundColor = UIColor.white
         view.isUserInteractionEnabled = true
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.gray.cgColor
         return view
+    }()
+    
+    let nowPlayingBarBorder: UIView = {
+        let border = UIView()
+        return border
     }()
     
     let nowPlayingBarArtworkImageView: UIImageView = {
         let artwork = UIImageView()
+        artwork.contentMode = .scaleAspectFit
+        artwork.dropShadow()
         return artwork
     }()
     
@@ -43,13 +46,12 @@ class SongsLibraryViewController: UICollectionViewController, UICollectionViewDe
         return label
     }()
     
-    let blackAnimationView: UIView = {
+    let blackFadeAnimationView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.black
         view.alpha = 0.0
         return view
     }()
-    
     
     // MARK: Animations
     var panGestureRecognizer: UIPanGestureRecognizer!

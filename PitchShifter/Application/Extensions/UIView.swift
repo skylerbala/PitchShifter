@@ -31,5 +31,17 @@ extension UIView {
         if let width = width       { widthAnchor.constraint(equalToConstant: width).isActive = true }
         if let height = height     { heightAnchor.constraint(equalToConstant: height).isActive = true }
     }
+
+    func dropShadow(scale: Bool = true) {
+        layer.masksToBounds = false
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.5
+        layer.shadowOffset = .zero
+        layer.shadowRadius = 3
+        
+        layer.shouldRasterize = true
+        layer.rasterizationScale = scale ? UIScreen.main.scale : 1
+    }
+
 }
 
