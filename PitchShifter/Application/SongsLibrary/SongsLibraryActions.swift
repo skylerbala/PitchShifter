@@ -51,11 +51,11 @@ extension SongsLibraryViewController {
         }
         
         animator = UIViewPropertyAnimator(duration: 1.0, dampingRatio: 0.8, animations: {
-            self.nowPlayingView.frame = finalFrame
+            self.nowPlayingBarMainView.frame = finalFrame
             self.blackAnimationView.alpha = blackAnimationiewAlpha
-            self.nowPlayingArtwork.frame = artworkFinalFrame
+            self.nowPlayingBarArtworkImageView.frame = artworkFinalFrame
             self.tabBarController?.tabBar.frame = tabBarFinalFrame
-            self.nowPlayingView.layer.cornerRadius = cornerRadius
+            self.nowPlayingBarMainView.layer.cornerRadius = cornerRadius
         })
     }
     

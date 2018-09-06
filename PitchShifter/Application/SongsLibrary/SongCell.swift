@@ -17,66 +17,56 @@ class SongCell: UICollectionViewCell {
         setCellViews()
     }
     
-    var albumArtworkImageView: UIImageView = {
+    // MARK: SongCell Views
+    let artworkImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = UIColor.blue
+        imageView.image = #imageLiteral(resourceName: "artwork")
+        imageView.backgroundColor = UIColor.white
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
-    var songTitleLabel: UILabel = {
+    let textView: UIView = {
+        let view = UIView()
+        view.isHidden = true
+        return view
+    }()
+    
+    let songTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "dsklfj"
+        label.text = "Song Title Not Found"
         return label
     }()
     
-    var artistLabel: UILabel = {
+    let artistLabel: UILabel = {
         let label = UILabel()
-        label.text = "Kanye West"
+        label.text = "Artist Not Found"
         return label
     }()
 
-    var separatorView: UIView = {
+    let separatorView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.gray
         return view
     }()
     
-    var imageColors: UIImageColors!
-    
-    func setCellViews() {
-        addSubview(albumArtworkImageView)
-        addSubview(separatorView)
-        addSubview(songTitleLabel)
-        addSubview(artistLabel)
-        
-        addConstraintsWithFormat(format: "H:|-8-[v0(84)]|", views: albumArtworkImageView)
-        
-        addConstraintsWithFormat(format: "V:|-8-[v0(84)]-8-[v1(1)]|", views: albumArtworkImageView, separatorView)
-        addConstraintsWithFormat(format: "H:|[v0]|", views: separatorView)
-        
-        // left constraints
-        addConstraint(NSLayoutConstraint(item: songTitleLabel, attribute: .left, relatedBy: .equal, toItem: albumArtworkImageView, attribute: .right, multiplier: 1, constant: 8))
-        addConstraint(NSLayoutConstraint(item: artistLabel, attribute: .left, relatedBy: .equal, toItem: albumArtworkImageView, attribute: .right, multiplier: 1, constant: 8))
-        
-        addConstraintsWithFormat(format: "V:|-16-[v0]-[v1]-8-|", views: songTitleLabel, artistLabel)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setImageCellColors(image: UIImage) {
-        if let imageColorFromCache = imageColorCache[songTitleLabel.text!] {
-            backgroundColor = imageColorFromCache.background
+    func setSongCellColors(image: UIImage) {
+        if let imageColorFromCache = imageColorCache[songTitleLabel.text! + artistLabel.text!] {
+            self.backgroundColor = imageColorFromCache.background
             songTitleLabel.textColor = imageColorFromCache.primary
             artistLabel.textColor = imageColorFromCache.secondary
         }
         else {
             let colors = image.getColors(quality: .lowest)
-            imageColorCache[songTitleLabel.text!] = colors
-            backgroundColor = colors.background
+            self.backgroundColor = colors.background
             songTitleLabel.textColor = colors.primary
             artistLabel.textColor = colors.secondary
+            
+            imageColorCache[songTitleLabel.text!] = colors
         }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

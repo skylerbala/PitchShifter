@@ -21,7 +21,7 @@ class AudioPlayerViewController: UIViewController {
     
     let albumArtwork: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = #imageLiteral(resourceName: "album-artwork")
+        imageView.image = #imageLiteral(resourceName: "artwork")
         return imageView
     }()
     

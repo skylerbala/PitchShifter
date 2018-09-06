@@ -18,27 +18,29 @@ enum AnimationState {
     case thumbnail
 }
 
+
 class SongsLibraryViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
-    let songs = MPMediaQuery.songs().items as! [MPMediaItem]
+    var songs = MPMediaQuery.songs().items!
     
     var songsLibraryViewControllerDelegate: SongsLibraryViewControllerDelegate!
     
-    let nowPlayingView: UIView = {
+    // MARK: Now Playing Bar Views
+    let nowPlayingBarMainView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.black
+        view.backgroundColor = UIColor.white
         view.isUserInteractionEnabled = true
         return view
     }()
     
-    let nowPlayingLabel: UILabel = {
-        let label = UILabel()
-        return label
-    }()
-    
-    let nowPlayingArtwork: UIImageView = {
+    let nowPlayingBarArtworkImageView: UIImageView = {
         let artwork = UIImageView()
         return artwork
+    }()
+    
+    let nowPlayingBarSongTitleLabel: UILabel = {
+        let label = UILabel()
+        return label
     }()
     
     let blackAnimationView: UIView = {
@@ -63,10 +65,10 @@ class SongsLibraryViewController: UICollectionViewController, UICollectionViewDe
         setViews()
         
         panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan(recognizer:)))
-        nowPlayingView.addGestureRecognizer(panGestureRecognizer)
+        nowPlayingBarMainView.addGestureRecognizer(panGestureRecognizer)
         
-        thumbnailFrame = nowPlayingView.frame
-        artworkFrame = nowPlayingArtwork.frame
+        thumbnailFrame = nowPlayingBarMainView.frame
+        artworkFrame = nowPlayingBarMainView.frame
         tabBarFrame = tabBarController?.tabBar.frame
         currentState = .thumbnail
         
@@ -85,8 +87,8 @@ class SongsLibraryViewController: UICollectionViewController, UICollectionViewDe
         cell.songTitleLabel.text = song.title
         cell.artistLabel.text = song.artist
         if let artworkImage = song.artwork?.image(at: CGSize()) {
-            cell.albumArtworkImageView.image = artworkImage
-            cell.setImageCellColors(image: artworkImage)
+            cell.artworkImageView.image = artworkImage
+            cell.setSongCellColors(image: artworkImage)
         }
         return cell
     }
@@ -107,7 +109,9 @@ class SongsLibraryViewController: UICollectionViewController, UICollectionViewDe
         
         
         if let artwork = song.artwork {
-            nowPlayingArtwork.image = artwork.image(at: CGSize())
+            nowPlayingBarArtworkImageView.image = artwork.image(at: CGSize())
+            nowPlayingBarMainView.backgroundColor = artwork.image(at: CGSize())?.getColors().background
+            nowPlayingBarSongTitleLabel.text = song.title
         }
     }
 }
